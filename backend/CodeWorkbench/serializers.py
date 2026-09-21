@@ -25,7 +25,16 @@ class BugSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bug
         fields = '__all__'
-
+        extra_kwargs = {
+            "project": {"read_only": True}
+        }
+class BugImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BugImage
+        fields = '__all__'
+        extra_kwargs = {
+            "bug": {"read_only": True}
+        }
 class SystemArchitectureSerializer(serializers.ModelSerializer):    
     class Meta:
         model = SystemArchitecture
@@ -44,8 +53,4 @@ class JournalImageSerializer(serializers.ModelSerializer):
             "journal": {"read_only": True}
         }
 
-class BugImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BugImage
-        fields = '__all__'
 

@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Project,Feature,Journal
-from .serializers import ProjectSerializer,FeatureSerializer,JournalSerializer,JournalImageSerializer
+from .models import Project,Feature,Journal,Bug
+from .serializers import ProjectSerializer,FeatureSerializer,JournalSerializer,JournalImageSerializer,BugSerializer,BugImageSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -129,6 +129,7 @@ def delete_journal(request,project_id,journal_id):
         journal=get_object_or_404(Journal,id=journal_id,project=project)
         journal.delete()
         return Response({"message":"Successfully deleted journal"},status=200)
+
 #Uploading journal images
 @api_view(["POST"])
 def upload_journal_image(request, project_id, journal_id):
@@ -142,4 +143,73 @@ def upload_journal_image(request, project_id, journal_id):
     if serializer.is_valid():
         serializer.save(journal=journal)
         return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+#Bug diary -- creating and retreiving bugs 
+@api_view(["GET", "POST"])
+def bugs(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.method == "POST":
+        serializer = BugSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(project=project)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    elif request.method == "GET":
+        bugs = project.bugs.all()
+        serializer = BugSerializer(bugs, many=True)
+        return Response(serializer.data, status=200)
+
+#updating bug
+@api_view(["PATCH"])
+def update_bug(request, project_id, bug_id):
+    project = get_object_or_404(Project, id=project_id)
+    bug = get_object_or_404(
+        Bug,
+        id=bug_id,
+        project=project
+    )
+    serializer = BugSerializer(
+        bug,
+        data=request.data,
+        partial=True
+    )
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=200)
+    return Response(serializer.errors, status=400)
+
+#Deleting a bug
+@api_view(["DELETE"])
+def delete_bug(request, project_id, bug_id):
+    project = get_object_or_404(Project, id=project_id)
+    bug = get_object_or_404(
+        Bug,
+        id=bug_id,
+        project=project
+    )
+    bug.delete()
+    return Response(
+        {"message": "Successfully deleted bug"},
+        status=200
+    )
+
+# Uploading bug image
+@api_view(["POST"])
+def upload_bug_image(request, project_id, bug_id):
+
+    project = get_object_or_404(Project, id=project_id)
+
+    bug = get_object_or_404(
+        Bug,
+        id=bug_id,
+        project=project
+    )
+
+    serializer = BugImageSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save(bug=bug)
+        return Response(serializer.data, status=201)
+
     return Response(serializer.errors, status=400)
