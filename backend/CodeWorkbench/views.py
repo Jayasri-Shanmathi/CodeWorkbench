@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Project,Feature,Journal,Bug
-from .serializers import ProjectSerializer,FeatureSerializer,JournalSerializer,JournalImageSerializer,BugSerializer,BugImageSerializer
+from .models import Project,Feature,Journal,Bug,SystemArchitecture,DatabaseSchema
+from .serializers import ProjectSerializer,FeatureSerializer,JournalSerializer,JournalImageSerializer,BugSerializer,BugImageSerializer,SystemArchitectureSerializer,DatabaseSchemaSerializer
 from django.shortcuts import get_object_or_404
 
 
@@ -213,3 +213,150 @@ def upload_bug_image(request, project_id, bug_id):
         return Response(serializer.data, status=201)
 
     return Response(serializer.errors, status=400)
+
+#System Architecture
+
+# Creating and retrieving system architecture
+@api_view(["GET", "POST"])
+def architecture(request, project_id):
+
+    project = get_object_or_404(Project, id=project_id)
+
+    if request.method == "GET":
+
+        architecture = SystemArchitecture.objects.filter(
+            project=project
+        ).first()
+
+        if architecture is None:
+            return Response(
+                {"message": "System architecture not created yet"},
+                status=404
+            )
+
+        serializer = SystemArchitectureSerializer(architecture)
+
+        return Response(serializer.data, status=200)
+
+    elif request.method == "POST":
+
+        serializer = SystemArchitectureSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(project=project)
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
+
+    # Updating system architecture
+
+@api_view(["PATCH"])
+def update_architecture(request, project_id):
+
+    project = get_object_or_404(Project, id=project_id)
+
+    architecture = get_object_or_404(
+        SystemArchitecture,
+        project=project
+    )
+
+    serializer = SystemArchitectureSerializer(
+        architecture,
+        data=request.data,
+        partial=True
+    )
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=200)
+
+    return Response(serializer.errors, status=400)
+
+# Deleting system architecture
+@api_view(["DELETE"])
+def delete_architecture(request, project_id):
+
+    project = get_object_or_404(Project, id=project_id)
+
+    architecture = get_object_or_404(
+        SystemArchitecture,
+        project=project
+    )
+
+    architecture.delete()
+
+    return Response(
+        {"message": "Successfully deleted system architecture"},
+        status=200
+    )
+
+# Creating and retrieving database schema
+@api_view(["GET", "POST"])
+def database_schema(request, project_id):
+
+    project = get_object_or_404(Project, id=project_id)
+
+    if request.method == "GET":
+
+        schema = DatabaseSchema.objects.filter(
+            project=project
+        ).first()
+
+        if schema is None:
+            return Response(
+                {"message": "Database schema not created yet"},
+                status=404
+            )
+
+        serializer = DatabaseSchemaSerializer(schema)
+
+        return Response(serializer.data, status=200)
+
+    elif request.method == "POST":
+
+        serializer = DatabaseSchemaSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(project=project)
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
+
+    # Updating database schema
+
+#update database schema
+@api_view(["PATCH"])
+def update_database_schema(request, project_id):
+
+    project = get_object_or_404(Project, id=project_id)
+
+    schema = get_object_or_404(
+        DatabaseSchema,
+        project=project
+    )
+
+    serializer = DatabaseSchemaSerializer(
+        schema,
+        data=request.data,
+        partial=True
+    )
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=200)
+
+    return Response(serializer.errors, status=400)
+
+# Deleting database schema
+@api_view(["DELETE"])
+def delete_database_schema(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    schema = get_object_or_404(
+        DatabaseSchema,
+        project=project
+    )
+    schema.delete()
+    return Response(
+        {"message": "Successfully deleted database schema"},
+        status=200
+    )
