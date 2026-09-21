@@ -5,16 +5,21 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
-
 class FeatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feature
-        fields = '__all__'  
+        fields = "__all__"
+        extra_kwargs = {
+            "project": {"read_only": True}
+        }
 
 class JournalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Journal
         fields = '__all__'
+        extra_kwargs = {
+            "project": {"read_only": True}
+        }
 
 class BugSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,6 +40,9 @@ class JournalImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = JournalImage
         fields = '__all__'
+        extra_kwargs = {
+            "journal": {"read_only": True}
+        }
 
 class BugImageSerializer(serializers.ModelSerializer):
     class Meta:
