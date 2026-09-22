@@ -5,6 +5,9 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = '__all__'
+        extra_kwargs = {
+            "user": {"read_only": True}
+        }
 class FeatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feature

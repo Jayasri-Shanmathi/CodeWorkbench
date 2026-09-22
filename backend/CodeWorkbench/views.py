@@ -3,14 +3,69 @@ from rest_framework.decorators import api_view
 from .models import Project,Feature,Journal,Bug,SystemArchitecture,DatabaseSchema
 from .serializers import ProjectSerializer,FeatureSerializer,JournalSerializer,JournalImageSerializer,BugSerializer,BugImageSerializer,SystemArchitectureSerializer,DatabaseSchemaSerializer
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import login,authenticate,logout
+from rest_framework.decorators import (api_view,authentication_classes,permission_classes)
+from rest_framework.permissions import AllowAny,IsAuthenticated
+from django.middleware.csrf import get_token
 
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def csrf_token(request):
+    return Response({
+        "csrfToken": get_token(request)
+    })
+
+
+#Login Setup
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def login_user(request):
+    username=request.data.get("username")
+    password=request.data.get("password")
+    if not username or not password:
+        return Response(
+            {"error": "Username and password are required"},
+            status=400
+        )
+    user = authenticate(
+        request,
+        username=username,
+        password=password
+    )
+    if user is None:
+        return Response(
+            {"error": "Invalid username or password"},
+            status=401
+        )
+    login(request, user)
+    return Response(
+        {
+            "message": "Login successful",
+            "username": user.username
+        },
+        status=200
+    )
+
+#Logout Setup
+
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def logout_user(request):
+    logout(request)
+    return Response(
+        {"message": "Logout successful"},
+        status=200
+    )
 
 #Creating a Project
 
 @api_view(["POST", "GET"])
+@permission_classes([IsAuthenticated])
 def project(request):
     if request.method == "GET":
-        projects = Project.objects.all()
+        projects = Project.objects.filter(user=request.user)
         result = []
         for project in projects:
             total = project.features.count()
@@ -28,13 +83,14 @@ def project(request):
     elif request.method=="POST":
         serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
-                serializer.save()
+                serializer.save(user=request.user)
                 return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
    #NO ELSE CLAUSE REQUIRED AS THE DECORATOR WOULD AUTOMATICALLY FILTER OUT ANY OTHER REQUEST METHODS
 
 #Updating a project
 @api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
 def update_project(request,id):
     project=get_object_or_404(Project,id=id)
     serializer=ProjectSerializer(project,data=request.data,partial=True)
@@ -45,6 +101,7 @@ def update_project(request,id):
 
 #Deleting a project
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def delete_project(request,id):
      project=get_object_or_404(Project,id=id)
      project.delete()
@@ -53,6 +110,7 @@ def delete_project(request,id):
 
 #Creating features and retrieving features of a project
 @api_view(["GET","POST"])
+@permission_classes([IsAuthenticated])
 def features(request,project_id):
     project=get_object_or_404(Project,id=project_id)
     if request.method=="GET":
@@ -70,6 +128,7 @@ def features(request,project_id):
 
 #Updating a feature
 @api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
 def update_feature(request,project_id,feature_id):
     project=get_object_or_404(Project,id=project_id)
     feature = get_object_or_404(
@@ -85,6 +144,7 @@ def update_feature(request,project_id,feature_id):
 
 #Deleting a feature
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def delete_feature(request,project_id,feature_id):
      project=get_object_or_404(Project,id=project_id)
      feature = get_object_or_404(
@@ -97,6 +157,7 @@ def delete_feature(request,project_id,feature_id):
 
 #Creatinga and retrieving journal
 @api_view(["POST","GET"])
+@permission_classes([IsAuthenticated])
 def journal(request,project_id):
     project=get_object_or_404(Project,id=project_id)
     if request.method=="GET":
@@ -113,6 +174,7 @@ def journal(request,project_id):
 
 #Updating a journal
 @api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
 def update_journal(request,project_id,journal_id):
     project=get_object_or_404(Project,id=project_id)
     journal=get_object_or_404(Journal,id=journal_id,project=project)
@@ -124,6 +186,7 @@ def update_journal(request,project_id,journal_id):
 
 #Deleting a journal
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def delete_journal(request,project_id,journal_id):
         project=get_object_or_404(Project,id=project_id)
         journal=get_object_or_404(Journal,id=journal_id,project=project)
@@ -132,8 +195,9 @@ def delete_journal(request,project_id,journal_id):
 
 #Uploading journal images
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def upload_journal_image(request, project_id, journal_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id,user=request.user)
     journal = get_object_or_404(
         Journal,
         id=journal_id,
@@ -147,8 +211,9 @@ def upload_journal_image(request, project_id, journal_id):
 
 #Bug diary -- creating and retreiving bugs 
 @api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
 def bugs(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id,user=request.user)
     if request.method == "POST":
         serializer = BugSerializer(data=request.data)
         if serializer.is_valid():
@@ -162,8 +227,9 @@ def bugs(request, project_id):
 
 #updating bug
 @api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
 def update_bug(request, project_id, bug_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
     bug = get_object_or_404(
         Bug,
         id=bug_id,
@@ -181,8 +247,9 @@ def update_bug(request, project_id, bug_id):
 
 #Deleting a bug
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def delete_bug(request, project_id, bug_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
     bug = get_object_or_404(
         Bug,
         id=bug_id,
@@ -196,9 +263,10 @@ def delete_bug(request, project_id, bug_id):
 
 # Uploading bug image
 @api_view(["POST"])
+@permission_classes([IsAuthenticated])
 def upload_bug_image(request, project_id, bug_id):
 
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
 
     bug = get_object_or_404(
         Bug,
@@ -218,9 +286,10 @@ def upload_bug_image(request, project_id, bug_id):
 
 # Creating and retrieving system architecture
 @api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
 def architecture(request, project_id):
 
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
 
     if request.method == "GET":
 
@@ -251,9 +320,10 @@ def architecture(request, project_id):
     # Updating system architecture
 
 @api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
 def update_architecture(request, project_id):
 
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
 
     architecture = get_object_or_404(
         SystemArchitecture,
@@ -274,9 +344,10 @@ def update_architecture(request, project_id):
 
 # Deleting system architecture
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def delete_architecture(request, project_id):
 
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
 
     architecture = get_object_or_404(
         SystemArchitecture,
@@ -292,9 +363,10 @@ def delete_architecture(request, project_id):
 
 # Creating and retrieving database schema
 @api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
 def database_schema(request, project_id):
 
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
 
     if request.method == "GET":
 
@@ -326,9 +398,10 @@ def database_schema(request, project_id):
 
 #update database schema
 @api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
 def update_database_schema(request, project_id):
 
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
 
     schema = get_object_or_404(
         DatabaseSchema,
@@ -349,8 +422,9 @@ def update_database_schema(request, project_id):
 
 # Deleting database schema
 @api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
 def delete_database_schema(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, id=project_id, user=request.user)
     schema = get_object_or_404(
         DatabaseSchema,
         project=project
