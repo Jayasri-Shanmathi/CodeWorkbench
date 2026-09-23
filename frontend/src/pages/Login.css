@@ -1,0 +1,1571 @@
+/* =========================================================
+   CODE WORKBENCH — LOGIN PAGE
+   Cozy Developer Workbench UI (Pure HTML & CSS shapes)
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #f5f1e8;
+    color: #2b332d;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================
+   PAGE LAYOUT: 62% LEFT / 38% RIGHT
+   ========================================================= */
+
+.login-page {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #f5f1e8;
+}
+
+/* =========================================================
+   LEFT SIDE — WORKBENCH SCENE (62vw / 62%)
+   ========================================================= */
+
+.workbench-scene {
+    position: relative;
+    width: 62%;
+    height: 100vh;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: #eee8da;
+    background-image: radial-gradient(circle at 1px 1px, rgba(110, 95, 75, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    border-right: 1px solid #ddd3c2;
+}
+
+/* =========================================================
+   COZY STRING LIGHTS (Hanging across the wall)
+   ========================================================= */
+
+.string-lights {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.lights-wire-svg {
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.lights-wire {
+    fill: none;
+    stroke: rgba(85, 70, 55, 0.45);
+    stroke-width: 1.5;
+}
+
+.string-bulb {
+    position: absolute;
+    width: 10px;
+    height: 13px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    background: radial-gradient(circle at 35% 30%, #fffbf0 0%, #ffdf88 45%, #f5b041 100%);
+    box-shadow:
+        0 0 10px rgba(255, 214, 110, 0.95),
+        0 0 22px rgba(245, 176, 65, 0.5),
+        0 0 35px rgba(245, 176, 65, 0.25);
+    transform: translateX(-50%);
+}
+
+.string-bulb::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: 2px;
+    width: 6px;
+    height: 4px;
+    background: #4a3e32;
+    border-radius: 2px 2px 0 0;
+}
+
+/* Coordinates along the curved wire */
+.b1 { left: 6%; top: 20px; }
+.b2 { left: 16%; top: 40px; }
+.b3 { left: 26%; top: 52px; }
+.b4 { left: 37%; top: 44px; }
+.b5 { left: 48%; top: 27px; }
+.b6 { left: 59%; top: 42px; }
+.b7 { left: 70%; top: 54px; }
+.b8 { left: 81%; top: 46px; }
+.b9 { left: 91%; top: 32px; }
+.b10 { left: 97%; top: 21px; }
+
+/* =========================================================
+   BRAND (Top-Left, Above All Decorative Elements)
+   ========================================================= */
+
+.brand {
+    position: absolute;
+    top: 42px;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 50;
+    pointer-events: auto;
+}
+
+.brand-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    background: #5d7155;
+    color: #ffffff;
+    font-size: 26px;
+    box-shadow: 0 6px 14px rgba(65, 55, 42, 0.18);
+}
+
+.brand-title {
+    margin: 0;
+    color: #242f27;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(26px, 2.4vw, 36px);
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 1.05;
+}
+
+.brand-tagline {
+    margin: 6px 0 0;
+    color: #786e60;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+}
+
+/* =========================================================
+   WALL FRAME (Framed Note on Wall — Straight & Level)
+   ========================================================= */
+
+.wall-frame {
+    position: absolute;
+    left: 44%;
+    top: 40px;
+    transform: none; /* Straight and level, not crooked */
+    width: 260px;
+    height: 190px;
+    padding: 10px;
+    background: #a57559;
+    border-radius: 4px;
+    box-shadow: 0 12px 24px rgba(70, 50, 35, 0.14), 0 3px 6px rgba(70, 50, 35, 0.08);
+    z-index: 10;
+}
+
+.frame-mat {
+    width: 100%;
+    height: 100%;
+    background: #fbf6ec;
+    border: 1px solid #d9cbba;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frame-content {
+    width: 100%;
+    height: 100%;
+    border: 1px dashed #d5c4b1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    text-align: center;
+}
+
+.frame-badge {
+    color: #5c7154;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    margin-bottom: 8px;
+}
+
+.frame-quote {
+    color: #2a342c;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    line-height: 1.16;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.frame-code {
+    margin-top: 8px;
+    color: #a57559;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   WALL BOOKSHELF (Floating on Right Wall)
+   ========================================================= */
+
+.wall-bookshelf {
+    position: absolute;
+    right: 14%;
+    top: 140px;
+    width: 140px;
+    height: 80px;
+    z-index: 7;
+}
+
+.shelf-board {
+    position: absolute;
+    left: 0;
+    bottom: 6px;
+    width: 140px;
+    height: 9px;
+    background: linear-gradient(180deg, #ba8560, #956246);
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(65, 46, 34, 0.16);
+}
+
+.shelf-bracket {
+    position: absolute;
+    bottom: -1px;
+    width: 5px;
+    height: 18px;
+    background: #885940;
+    border-radius: 2px;
+}
+
+.shelf-bracket-left {
+    left: 18px;
+}
+
+.shelf-bracket-right {
+    right: 18px;
+}
+
+.shelf-books {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.shelf-book {
+    border-radius: 2px 2px 0 0;
+    box-shadow: 1px 2px 4px rgba(60, 45, 35, 0.15);
+}
+
+.book-green {
+    width: 14px;
+    height: 44px;
+    background: #73846c;
+    transform: rotate(-3deg);
+    transform-origin: bottom center;
+}
+
+.book-terracotta {
+    width: 13px;
+    height: 48px;
+    background: #c6866f;
+    transform: rotate(1deg);
+}
+
+.book-mustard {
+    width: 15px;
+    height: 38px;
+    background: #cfa864;
+    transform: rotate(3deg);
+}
+
+.book-olive {
+    width: 14px;
+    height: 45px;
+    background: #5d6f55;
+    transform: rotate(-1deg);
+}
+
+.shelf-vase {
+    position: absolute;
+    right: 18px;
+    bottom: 15px;
+    width: 18px;
+    height: 20px;
+    border-radius: 50% 50% 5px 5px;
+    background: #c78b74;
+    box-shadow: 0 3px 5px rgba(65, 45, 35, 0.14);
+}
+
+/* =========================================================
+   HANGING PLANT (Hanging from Top Right Ceiling)
+   ========================================================= */
+
+.hanging-plant {
+    position: absolute;
+    right: 5%;
+    top: 0;
+    width: 90px;
+    height: 140px;
+    z-index: 8;
+}
+
+.hanging-mount {
+    position: absolute;
+    top: 0;
+    left: 41px;
+    width: 8px;
+    height: 6px;
+    border-radius: 0 0 4px 4px;
+    background: #746857;
+}
+
+.hanging-cord {
+    position: absolute;
+    top: 6px;
+    left: 44px;
+    width: 2px;
+    height: 45px;
+    background: #7c7263;
+}
+
+.hanging-pot {
+    position: absolute;
+    top: 50px;
+    left: 17px;
+    width: 56px;
+    height: 42px;
+    background: #c68972;
+    border-radius: 5px 5px 15px 15px;
+    box-shadow: 0 6px 14px rgba(65, 45, 35, 0.14);
+}
+
+.hanging-pot::before {
+    content: "";
+    position: absolute;
+    top: -3px;
+    left: -2px;
+    width: 60px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ae7560;
+}
+
+.hanging-leaf {
+    position: absolute;
+    border-radius: 100% 0 100% 0;
+    transform-origin: bottom center;
+    box-shadow: 0 2px 4px rgba(50, 40, 30, 0.12);
+}
+
+.leaf-1 {
+    width: 20px;
+    height: 46px;
+    left: -3px;
+    top: -20px;
+    background: #6a7d63;
+    transform: rotate(-44deg);
+}
+
+.leaf-2 {
+    width: 18px;
+    height: 44px;
+    left: 12px;
+    top: -28px;
+    background: #7e9176;
+    transform: rotate(-12deg);
+}
+
+.leaf-3 {
+    width: 19px;
+    height: 45px;
+    left: 26px;
+    top: -26px;
+    background: #5d6f56;
+    transform: rotate(18deg);
+}
+
+.leaf-4 {
+    width: 20px;
+    height: 46px;
+    left: 38px;
+    top: -18px;
+    background: #75876d;
+    transform: rotate(46deg);
+}
+
+/* =========================================================
+   WORKBENCH / DESK
+   Begins around lower 40% of left section
+   ========================================================= */
+
+.workbench {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: clamp(340px, 40vh, 440px);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================================
+   TABLETOP (Craftsman Wood Slab with Bevel and Overhang)
+   ========================================================= */
+
+.tabletop {
+    position: relative;
+    width: 100%;
+    height: 96px;
+    flex-shrink: 0;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(115, 78, 52, 0.04) 0px,
+            rgba(115, 78, 52, 0.04) 2px,
+            transparent 2px,
+            transparent 32px
+        ),
+        linear-gradient(180deg, #d8a97e 0%, #c49265 100%);
+    border-top: 4px solid #ba8558;
+    border-bottom: 8px solid #8e5c3c;
+    box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.2),
+        0 10px 24px rgba(60, 40, 25, 0.18);
+}
+
+.tabletop-edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 8px;
+    background: #7a4b2e;
+    box-shadow: 0 4px 10px rgba(50, 30, 18, 0.22);
+}
+
+.tabletop-shadow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -16px;
+    height: 16px;
+    background: linear-gradient(180deg, rgba(50, 30, 18, 0.3) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Container for items anchored directly to the tabletop surface */
+.tabletop-items {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+/* =========================================================
+   DESK LAMP (Left side of workbench, sits ON desk)
+   ========================================================= */
+
+.desk-lamp {
+    position: absolute;
+    left: 5%;
+    bottom: 0;
+    width: 160px;
+    height: 200px;
+    z-index: 25;
+}
+
+.lamp-glow {
+    position: absolute;
+    left: 80px;
+    bottom: 0;
+    width: 180px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(255, 240, 185, 0.28) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.lamp-base {
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+    width: 96px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #d39c65, #b47948);
+    border: 2px solid #94603b;
+    box-shadow: 0 6px 10px rgba(65, 45, 30, 0.2);
+}
+
+.lamp-stem {
+    position: absolute;
+    left: 53px;
+    bottom: 10px;
+    width: 11px;
+    height: 118px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #9a613b, #cf9960, #a3683f);
+    box-shadow: 2px 0 3px rgba(70, 48, 32, 0.15);
+}
+
+.lamp-joint {
+    position: absolute;
+    left: 41px;
+    bottom: 114px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #d5a072, #b17246);
+    border: 2px solid #905938;
+    box-shadow: 0 3px 6px rgba(65, 45, 30, 0.18);
+    z-index: 4;
+}
+
+.lamp-arm {
+    position: absolute;
+    left: 62px;
+    bottom: 135px;
+    width: 80px;
+    height: 11px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #ce985f, #aa6d41);
+    transform: rotate(-42deg);
+    transform-origin: left center;
+    z-index: 3;
+}
+
+.lamp-neck {
+    position: absolute;
+    left: 118px;
+    bottom: 175px;
+    width: 16px;
+    height: 10px;
+    border-radius: 4px;
+    background: #9d5f40;
+    transform: rotate(-42deg);
+    z-index: 4;
+}
+
+.lamp-shade {
+    position: absolute;
+    left: 104px;
+    bottom: 148px;
+    width: 68px;
+    height: 52px;
+    background: linear-gradient(135deg, #df9a87, #c67a67);
+    border: 2px solid #a46253;
+    border-radius: 26px 26px 10px 10px;
+    transform: rotate(-22deg);
+    transform-origin: bottom left;
+    box-shadow: 0 8px 14px rgba(65, 45, 35, 0.18);
+    z-index: 5;
+}
+
+.lamp-inner {
+    position: absolute;
+    left: 3px;
+    bottom: -6px;
+    width: 60px;
+    height: 14px;
+    border-radius: 50%;
+    background: #faebd2;
+    border: 2px solid #a46253;
+}
+
+.lamp-bulb {
+    position: absolute;
+    left: 18px;
+    bottom: -1px;
+    width: 24px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff4cb;
+    box-shadow: 0 0 14px rgba(255, 235, 160, 0.7);
+}
+
+/* =========================================================
+   LAPTOP (Center of Workbench)
+   Width: ~260px, Screen: ~216px
+   Sits ON tabletop, never crosses login panel
+   ========================================================= */
+
+.laptop {
+    position: absolute;
+    left: 46%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 156px;
+    z-index: 26;
+}
+
+.laptop-screen {
+    position: absolute;
+    left: 22px;
+    top: 0;
+    width: 216px;
+    height: 130px;
+    padding: 8px;
+    background: #2b332d;
+    border: 6px solid #48524b;
+    border-radius: 10px 10px 3px 3px;
+    box-shadow: 0 8px 18px rgba(60, 42, 30, 0.18);
+}
+
+.screen-camera {
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #1a201b;
+}
+
+.screen-display {
+    width: 100%;
+    height: 100%;
+    background: #1a221d;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.editor-topbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 8px;
+    background: #141b16;
+    border-bottom: 1px solid #232c25;
+}
+
+.editor-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.editor-dot.red {
+    background: #c56554;
+}
+
+.editor-dot.yellow {
+    background: #d4a95a;
+}
+
+.editor-dot.green {
+    background: #6a9c65;
+}
+
+.editor-filename {
+    margin-left: 6px;
+    color: #728477;
+    font-size: 9px;
+    font-family: Consolas, monospace;
+}
+
+.code-content {
+    padding: 8px 10px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9.5px;
+    line-height: 1.45;
+    color: #cbd8cf;
+}
+
+.code-line {
+    white-space: pre;
+}
+
+.c-kw {
+    color: #c9846e;
+    font-weight: 600;
+}
+
+.c-fn {
+    color: #8bb184;
+}
+
+.laptop-base {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    height: 24px;
+    background: #bcb6a8;
+    border-radius: 4px 4px 10px 10px;
+    transform: perspective(220px) rotateX(14deg);
+    transform-origin: bottom center;
+    box-shadow: 0 6px 12px rgba(60, 42, 30, 0.16);
+}
+
+.trackpad {
+    position: absolute;
+    left: 50%;
+    top: 5px;
+    transform: translateX(-50%);
+    width: 54px;
+    height: 11px;
+    border-radius: 3px;
+    background: #aba597;
+}
+
+/* =========================================================
+   DESK PLANT (Right of Laptop, Sits ON Tabletop)
+   ========================================================= */
+
+.desk-plant {
+    position: absolute;
+    left: 68%;
+    bottom: 0;
+    width: 88px;
+    height: 130px;
+    z-index: 24;
+}
+
+.desk-pot {
+    position: absolute;
+    left: 16px;
+    bottom: 0;
+    width: 56px;
+    height: 46px;
+    background: #be7d67;
+    border-radius: 5px 5px 16px 16px;
+    box-shadow: 0 6px 10px rgba(60, 42, 30, 0.14);
+    z-index: 4;
+}
+
+.desk-pot::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -2px;
+    width: 60px;
+    height: 9px;
+    border-radius: 50%;
+    background: #a96c57;
+}
+
+.desk-leaf {
+    position: absolute;
+    width: 22px;
+    height: 56px;
+    border-radius: 100% 0 100% 0;
+    transform-origin: bottom center;
+    box-shadow: 0 2px 4px rgba(50, 40, 30, 0.1);
+    z-index: 2;
+}
+
+.d-leaf-1 {
+    left: 24px;
+    bottom: 38px;
+    background: #6e8065;
+    transform: rotate(-18deg);
+}
+
+.d-leaf-2 {
+    left: 10px;
+    bottom: 42px;
+    background: #7f9074;
+    transform: rotate(-44deg);
+}
+
+.d-leaf-3 {
+    left: 36px;
+    bottom: 48px;
+    background: #5d7059;
+    transform: rotate(8deg);
+}
+
+.d-leaf-4 {
+    left: 48px;
+    bottom: 40px;
+    background: #7f9074;
+    transform: rotate(38deg);
+}
+
+.d-leaf-5 {
+    left: 38px;
+    bottom: 54px;
+    background: #67795f;
+    transform: rotate(26deg);
+}
+
+/* =========================================================
+   STATIONERY HOLDER (Right of Desk Plant)
+   Detailed pens, pencils with eraser & ruler inside container
+   ========================================================= */
+
+.stationery-holder {
+    position: absolute;
+    left: 82%;
+    bottom: 0;
+    width: 78px;
+    height: 125px;
+    z-index: 25;
+}
+
+/* Dark hollow inner cavity of the container */
+.cup-opening {
+    position: absolute;
+    left: 5px;
+    bottom: 48px;
+    width: 68px;
+    height: 16px;
+    border-radius: 50%;
+    background: #4a3b2c;
+    border: 1.5px solid #36291d;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+/* Wrapper for pens & ruler inside the container */
+.cup-contents {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 4;
+}
+
+/* Front body of the pen cup */
+.pen-cup {
+    position: absolute;
+    left: 5px;
+    bottom: 0;
+    width: 68px;
+    height: 56px;
+    background: linear-gradient(180deg, #dfd3b8 0%, #cbbe9f 100%);
+    border: 2px solid #b5a788;
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 6px 14px rgba(60, 42, 30, 0.18);
+    z-index: 6;
+}
+
+/* Front curved rim / lip of the cup */
+.cup-rim {
+    position: absolute;
+    top: -7px;
+    left: -2px;
+    right: -2px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #b5a788;
+    background: transparent;
+    border-top-color: rgba(181, 167, 136, 0.4);
+    pointer-events: none;
+}
+
+/* Base pen / pencil styles */
+.pen {
+    position: absolute;
+    transform-origin: bottom center;
+    box-shadow: 1px 2px 4px rgba(40, 25, 15, 0.18);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Yellow Hex Pencil with eraser and metal ferrule */
+.pen-pencil-yellow {
+    left: 14px;
+    bottom: 12px;
+    width: 7.5px;
+    height: 74px;
+    transform: rotate(-9deg);
+    z-index: 4;
+}
+
+.pencil-eraser {
+    width: 100%;
+    height: 10px;
+    background: #e69188;
+    border-radius: 3px 3px 0 0;
+    border: 1px solid #cf746b;
+}
+
+.pencil-ferrule {
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #bfa052, #faea9c, #ab8c3e);
+    border-top: 1px solid #8e7330;
+    border-bottom: 1px solid #8e7330;
+}
+
+.pencil-body {
+    width: 100%;
+    flex: 1;
+    background: linear-gradient(90deg, #d8a02c, #f2c253, #cca030);
+    border-radius: 0 0 1px 1px;
+}
+
+/* Black Fine-liner / Gel Pen with metal clip and cap */
+.pen-fineliner-black {
+    left: 26px;
+    bottom: 12px;
+    width: 7px;
+    height: 80px;
+    transform: rotate(-3deg);
+    z-index: 4;
+}
+
+.pen-clip {
+    position: absolute;
+    left: -3px;
+    top: 6px;
+    width: 3px;
+    height: 20px;
+    background: linear-gradient(180deg, #d6d6d6, #9e9e9e);
+    border-radius: 1px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    z-index: 5;
+}
+
+.pen-cap {
+    width: 100%;
+    height: 26px;
+    background: #242925;
+    border-radius: 2px 2px 0 0;
+    border-bottom: 1.5px solid #d4af37;
+}
+
+.pen-body {
+    width: 100%;
+    flex: 1;
+    background: #333a34;
+}
+
+/* Wooden Ruler - sits in center-back */
+.ruler {
+    position: absolute;
+    left: 36px;
+    bottom: 10px;
+    width: 13px;
+    height: 84px;
+    background: #dfbe94;
+    border: 1px solid #be9a6c;
+    border-radius: 2px;
+    transform: rotate(2deg);
+    transform-origin: bottom center;
+    box-shadow: 1px 2px 4px rgba(60, 42, 30, 0.14);
+    background-image: repeating-linear-gradient(
+        180deg,
+        #82613d 0px,
+        #82613d 1px,
+        transparent 1px,
+        transparent 6px
+    );
+    z-index: 3;
+}
+
+/* Green Drafting Pencil with eraser */
+.pen-pencil-green {
+    left: 49px;
+    bottom: 12px;
+    width: 7.5px;
+    height: 70px;
+    transform: rotate(7deg);
+    z-index: 4;
+}
+
+.pen-pencil-green .pencil-eraser {
+    background: #f0f0f0;
+    border-color: #d0d0d0;
+}
+
+.pen-pencil-green .pencil-ferrule {
+    background: linear-gradient(90deg, #b0b0b0, #ffffff, #909090);
+    border-color: #888888;
+}
+
+.pen-pencil-green .pencil-body {
+    background: linear-gradient(90deg, #5b7057, #778f72, #536750);
+}
+
+/* Terracotta Stylus / Pen with clip */
+.pen-stylus-terracotta {
+    left: 58px;
+    bottom: 12px;
+    width: 6.5px;
+    height: 65px;
+    transform: rotate(13deg);
+    z-index: 4;
+}
+
+.pen-stylus-terracotta .pen-clip {
+    top: 4px;
+    background: linear-gradient(180deg, #c79576, #9b6a4a);
+}
+
+.pen-stylus-terracotta .pen-body {
+    background: linear-gradient(90deg, #b06953, #cd856f, #a25c46);
+    border-radius: 2px 2px 0 0;
+}
+
+/* =========================================================
+   TABLE UNDER-STRUCTURE (Apron, Drawer, Legs & Kneehole)
+   Makes it look 100% like a real table
+   ========================================================= */
+
+.table-under {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Open space / Kneehole under table showing wall & shadow */
+.table-kneehole-space {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #e2dac9;
+    background-image: radial-gradient(circle at 1px 1px, rgba(110, 95, 75, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.kneehole-shadow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 120px;
+    background: linear-gradient(180deg, rgba(60, 42, 28, 0.35) 0%, rgba(60, 42, 28, 0.12) 60%, transparent 100%);
+}
+
+/* Horizontal craftsman stretcher bar connecting legs in the back */
+.table-stretcher {
+    position: absolute;
+    bottom: 28px;
+    left: 7%;
+    right: 7%;
+    height: 14px;
+    background: linear-gradient(180deg, #875437, #6c4027);
+    border-radius: 2px;
+    box-shadow:
+        0 4px 8px rgba(45, 28, 18, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Table Apron (Horizontal wooden frame holding the drawer) */
+.table-apron {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 72px;
+    background: linear-gradient(180deg, #9d6848, #8c5737);
+    border-bottom: 3px solid #734327;
+    box-shadow: 0 4px 10px rgba(50, 32, 20, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+/* Craftsman Drawer mounted in the apron */
+.table-drawer {
+    width: clamp(260px, 32vw, 360px);
+    height: 52px;
+}
+
+.drawer-panel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #814f34 0%, #724229 100%);
+    border: 2px solid rgba(85, 48, 28, 0.7);
+    border-radius: 4px;
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.35),
+        0 2px 5px rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drawer-handle {
+    width: 76px;
+    height: 10px;
+    background: linear-gradient(180deg, #c5a267, #987842);
+    border-radius: 4px;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Sturdy Wooden Table Legs */
+.table-leg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 38px;
+    z-index: 5;
+    display: flex;
+}
+
+.leg-left {
+    left: 6%;
+}
+
+.leg-right {
+    right: 6%;
+}
+
+.leg-front {
+    width: 26px;
+    height: 100%;
+    background: linear-gradient(180deg, #9e6949 0%, #855335 100%);
+    box-shadow: 2px 0 5px rgba(45, 28, 18, 0.2);
+}
+
+.leg-side {
+    width: 12px;
+    height: 100%;
+    background: linear-gradient(180deg, #7c4d32 0%, #663c23 100%);
+    box-shadow: 3px 4px 8px rgba(35, 20, 12, 0.3);
+}
+
+.leg-foot {
+    position: absolute;
+    bottom: 0;
+    left: -3px;
+    width: 44px;
+    height: 10px;
+    background: #5d3620;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 4px 8px rgba(35, 20, 12, 0.35);
+}
+
+/* =========================================================
+   RIGHT SIDE — LOGIN PANEL (38vw / 38%)
+   ========================================================= */
+
+.login-panel {
+    position: relative;
+    width: 38%;
+    height: 100vh;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 4%;
+    background: #f5f1e8;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+/* =========================================================
+   PAPER-LIKE LOGIN CARD
+   ========================================================= */
+
+.paper-card {
+    position: relative;
+    width: min(460px, 100%);
+    padding: 52px 52px 44px;
+    background: #fffdf8;
+    border: 1px solid #dfd6c6;
+    border-radius: 2px;
+    box-shadow:
+        10px 12px 0 rgba(212, 203, 188, 0.55),
+        0 20px 40px rgba(65, 54, 40, 0.08);
+}
+
+/* Folded Corner */
+.paper-fold {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 48px solid #e7dfd1;
+    border-left: 48px solid transparent;
+}
+
+.paper-fold::after {
+    content: "";
+    position: absolute;
+    top: -48px;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, transparent 50%, rgba(60, 48, 35, 0.08) 100%);
+    pointer-events: none;
+}
+
+/* Card Header */
+.card-badge-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 26px;
+}
+
+.workspace-badge {
+    display: inline-block;
+    padding: 11px 18px;
+    background: #e4ebe0;
+    color: #556950;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 2.2px;
+    border-radius: 4px;
+}
+
+.card-title {
+    margin: 0;
+    text-align: center;
+    color: #242f27;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.card-subtitle {
+    margin: 10px 0 36px;
+    text-align: center;
+    color: #887d6d;
+    font-size: 15.5px;
+}
+
+/* Form */
+.login-form {
+    width: 100%;
+}
+
+.form-field {
+    margin-bottom: 26px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #2f362f;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 14px 12px;
+    border: none;
+    border-bottom: 1px solid #d0c6b6;
+    outline: none;
+    background: #fffdf8;
+    color: #2f362f;
+    font-size: 15.5px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-field input:focus {
+    border-bottom-color: #5d7155;
+    box-shadow: 0 2px 0 #5d7155;
+}
+
+.form-field input::placeholder {
+    color: #aaa294;
+}
+
+/* Error */
+.form-error {
+    margin: 0 0 18px;
+    text-align: center;
+    color: #a45347;
+    font-size: 13.5px;
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    margin-top: 6px;
+    padding: 16px;
+    border: none;
+    border-radius: 5px;
+    background: #5d7155;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 7px 14px rgba(70, 85, 65, 0.18);
+    transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #506249;
+    transform: translateY(-1px);
+    box-shadow: 0 9px 18px rgba(70, 85, 65, 0.24);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Card Footer */
+.card-footer {
+    margin-top: 32px;
+    padding-top: 18px;
+    border-top: 1px dashed #d9cfc0;
+    text-align: center;
+    color: #9f9180;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 1200px) {
+    .brand {
+        top: 36px;
+        left: 5%;
+    }
+
+    .brand-title {
+        font-size: 30px;
+    }
+
+    .wall-frame {
+        left: 48%;
+        top: 36px;
+        width: 240px;
+        height: 180px;
+    }
+
+    .frame-quote {
+        font-size: 19px;
+    }
+
+    .wall-bookshelf {
+        right: 10%;
+        top: 130px;
+        transform: scale(0.85);
+        transform-origin: right top;
+    }
+
+    .hanging-plant {
+        right: 3%;
+        transform: scale(0.85);
+        transform-origin: right top;
+    }
+
+    .laptop {
+        left: 44%;
+    }
+
+    .desk-plant {
+        left: 67%;
+    }
+
+    .stationery-holder {
+        left: 81%;
+    }
+}
+
+@media (max-width: 960px) {
+    .login-page {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+
+    .workbench-scene {
+        width: 100%;
+        height: 560px;
+        border-right: none;
+        border-bottom: 1px solid #ddd3c2;
+    }
+
+    .login-panel {
+        width: 100%;
+        height: auto;
+        min-height: 560px;
+        padding: 50px 24px;
+    }
+
+    .brand {
+        top: 24px;
+        left: 24px;
+    }
+
+    .wall-frame {
+        top: 28px;
+        left: 52%;
+        transform: translateX(-50%);
+        width: 230px;
+        height: 165px;
+    }
+
+    .frame-quote {
+        font-size: 18px;
+    }
+
+    .wall-bookshelf {
+        right: 12%;
+        top: 110px;
+        transform: scale(0.8);
+        transform-origin: right top;
+    }
+
+    .hanging-plant {
+        right: 4%;
+        top: 0;
+        transform: scale(0.8);
+        transform-origin: right top;
+    }
+
+    .laptop {
+        left: 44%;
+    }
+
+    .desk-plant {
+        left: 68%;
+    }
+
+    .stationery-holder {
+        left: 83%;
+    }
+}
+
+@media (max-width: 640px) {
+    .workbench-scene {
+        height: 480px;
+    }
+
+    .brand {
+        top: 20px;
+        left: 18px;
+    }
+
+    .brand-mark {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+    }
+
+    .brand-title {
+        font-size: 24px;
+    }
+
+    .brand-tagline {
+        font-size: 12.5px;
+    }
+
+    .wall-frame {
+        top: 96px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 210px;
+        height: 150px;
+        padding: 8px;
+    }
+
+    .frame-badge {
+        font-size: 9px;
+        letter-spacing: 1.8px;
+        margin-bottom: 6px;
+    }
+
+    .frame-quote {
+        font-size: 16px;
+    }
+
+    .frame-code {
+        font-size: 11.5px;
+        margin-top: 6px;
+    }
+
+    .wall-bookshelf {
+        display: none;
+    }
+
+    .hanging-plant {
+        right: 2%;
+        top: 0;
+        transform: scale(0.65);
+        transform-origin: right top;
+    }
+
+    .workbench {
+        height: 250px;
+    }
+
+    .tabletop {
+        height: 80px;
+    }
+
+    .tabletop-edge {
+        bottom: -6px;
+        height: 6px;
+    }
+
+    .desk-lamp {
+        left: 0;
+        transform: scale(0.62);
+        transform-origin: bottom left;
+    }
+
+    .laptop {
+        left: 42%;
+        transform: translateX(-50%) scale(0.65);
+        transform-origin: bottom center;
+    }
+
+    .desk-plant {
+        left: 64%;
+        transform: scale(0.62);
+        transform-origin: bottom center;
+    }
+
+    .stationery-holder {
+        left: 81%;
+        transform: scale(0.62);
+        transform-origin: bottom right;
+    }
+
+    .paper-card {
+        padding: 40px 26px 32px;
+    }
+
+    .card-title {
+        font-size: 32px;
+    }
+}

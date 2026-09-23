@@ -1,10 +1,11 @@
-from .views import project,update_project,delete_project,features,update_feature,delete_feature,journal,update_journal,delete_journal,upload_journal_image,bugs,update_bug,delete_bug,upload_bug_image,architecture,update_architecture,delete_architecture,database_schema,update_database_schema,delete_database_schema,login_user,logout_user,csrf_token
+from .views import project,update_project,delete_project,features,update_feature,delete_feature,journal,update_journal,delete_journal,upload_journal_image,bugs,update_bug,delete_bug,upload_bug_image,architecture,update_architecture,delete_architecture,database_schema,update_database_schema,delete_database_schema,login_user,logout_user,register_user,csrf_token
 from django.urls import path
 
 
 urlpatterns = [
     path('csrf/', csrf_token),
     path('login/',login_user),
+    path('register/',register_user),
     path('logout/',logout_user),
     path('project/',project),
     path('update_project/<int:id>/',update_project),

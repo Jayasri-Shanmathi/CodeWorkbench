@@ -1,0 +1,577 @@
+/* =========================================================
+   CODE WORKBENCH — JOURNAL & NOTEBOOK STYLING
+   "thoughts, ideas & decisions while building"
+   ========================================================= */
+
+.journal-container {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* Page Header */
+.journal-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.journal-title {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  letter-spacing: 1px;
+  color: var(--dark-green);
+  text-transform: uppercase;
+}
+
+.journal-subtitle {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Journal Entry List */
+.journal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Journal Entry Tiles List with Spacing Between Tiles */
+.journal-tiles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Individual Notebook Tile */
+.journal-entry-tile {
+  position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(221, 212, 197, 0.45) 31px,
+    rgba(221, 212, 197, 0.45) 32px
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 28px 18px 36px;
+  box-shadow: 0 2px 8px rgba(65, 52, 38, 0.04), 0 1px 2px rgba(65, 52, 38, 0.02);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+/* Faint Vertical Margin Line on Tile */
+.journal-entry-tile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 24px;
+  width: 1px;
+  background-color: rgba(197, 141, 117, 0.35);
+  pointer-events: none;
+}
+
+.journal-entry-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(65, 52, 38, 0.08);
+  border-color: var(--muted-green);
+}
+
+.journal-entry-date {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--muted-brown);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.journal-entry-title {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--dark-green);
+  line-height: 1.35;
+  margin: 0;
+  transition: color var(--transition-fast);
+}
+
+.journal-entry-tile:hover .journal-entry-title {
+  color: var(--terracotta);
+}
+
+/* Notebook-Style Page Container for Journal Listing */
+.journal-notebook-page {
+  position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(221, 212, 197, 0.45) 31px,
+    rgba(221, 212, 197, 0.45) 32px
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 36px 16px 44px;
+  box-shadow: 0 4px 12px rgba(65, 52, 38, 0.05), 0 1px 3px rgba(65, 52, 38, 0.03);
+}
+
+/* Faint Vertical Margin Line */
+.journal-notebook-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 32px;
+  width: 1px;
+  background-color: rgba(197, 141, 117, 0.35);
+  pointer-events: none;
+}
+
+/* Individual Entry Row */
+.journal-entry-row {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), padding-left var(--transition-fast);
+}
+
+.journal-entry-row:last-child {
+  border-bottom: none;
+}
+
+.journal-entry-row:hover {
+  background-color: rgba(221, 212, 197, 0.2);
+  padding-left: 6px;
+}
+
+/* Notebook-Style Card */
+.journal-card {
+  position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(221, 212, 197, 0.45) 31px,
+    rgba(221, 212, 197, 0.45) 32px
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 28px 36px 26px 44px;
+  box-shadow: 0 4px 12px rgba(65, 52, 38, 0.05), 0 1px 3px rgba(65, 52, 38, 0.03);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.journal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(65, 52, 38, 0.09);
+}
+
+/* Faint Vertical Margin Line */
+.journal-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 32px;
+  width: 1px;
+  background-color: rgba(197, 141, 117, 0.35);
+  pointer-events: none;
+}
+
+/* Card Header: Date & Flag */
+.journal-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.journal-card-date {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--muted-brown);
+  text-transform: uppercase;
+}
+
+.journal-card-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+
+.journal-card-body {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 32px; /* Aligns with 32px notebook lines */
+  white-space: pre-wrap;
+  margin-bottom: 20px;
+}
+
+/* Notebook Flags */
+.notebook-flag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.flag-general {
+  background: #ECE7DD;
+  color: #6A6052;
+  border-color: #DDD4C5;
+}
+
+.flag-idea {
+  background: #E5EBDF;
+  color: #4C5D46;
+  border-color: rgba(109, 125, 100, 0.35);
+}
+
+.flag-decision {
+  background: #F5EBE4;
+  color: #8C5F47;
+  border-color: rgba(167, 123, 95, 0.35);
+}
+
+.flag-discarded {
+  background: #F7E4E2;
+  color: #9E4D41;
+  border-color: rgba(196, 85, 72, 0.3);
+}
+
+/* Attached Images — Notebook Polaroid Snapshot Feel */
+.journal-images-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-light);
+}
+
+.notebook-image-frame {
+  background: #ffffff;
+  padding: 6px 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+  transition: transform var(--transition-fast);
+  max-width: 220px;
+}
+
+.notebook-image-frame:hover {
+  transform: rotate(-1deg) scale(1.02);
+}
+
+.notebook-image-thumb {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 1px;
+  display: block;
+}
+
+/* Card Actions */
+.journal-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-light);
+}
+
+/* =========================================================
+   JOURNAL ENTRY EDITOR (Physical Notebook Page)
+   ========================================================= */
+
+.journal-editor-page {
+  position: relative;
+  background-color: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 44px 48px 40px 52px;
+  box-shadow: 0 6px 18px rgba(65, 52, 38, 0.07), 0 1px 4px rgba(65, 52, 38, 0.04);
+}
+
+/* Faint vertical margin line on editor page */
+.journal-editor-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 36px;
+  width: 1px;
+  background-color: rgba(197, 141, 117, 0.35);
+  pointer-events: none;
+}
+
+.editor-header-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.editor-page-heading {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--dark-green);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.editor-timestamp {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Notebook Title Input */
+.notebook-title-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--border);
+  padding: 10px 0;
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--dark-green);
+  outline: none;
+  transition: border-color var(--transition-fast);
+  margin-bottom: 24px;
+}
+
+.notebook-title-input:focus {
+  border-bottom-color: var(--muted-green);
+}
+
+.notebook-title-input::placeholder {
+  color: var(--text-subtle);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Flag Selector Tabs */
+.editor-flag-group {
+  margin-bottom: 28px;
+}
+
+.editor-flag-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.flag-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.flag-tab-btn {
+  padding: 6px 14px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.flag-tab-btn:hover {
+  background: var(--wall);
+  color: var(--text);
+}
+
+.flag-tab-btn.selected {
+  border-color: var(--muted-green);
+  background: var(--soft-green);
+  color: var(--dark-green);
+  box-shadow: 0 1px 3px rgba(109, 125, 100, 0.2);
+}
+
+/* Lined Writing Area */
+.notebook-writing-area {
+  position: relative;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.notebook-lined-textarea {
+  width: 100%;
+  padding: 8px 14px;
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 32px; /* Perfectly matches 32px ruled lines */
+  color: var(--text);
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(221, 212, 197, 0.5) 31px,
+    rgba(221, 212, 197, 0.5) 32px
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  resize: vertical;
+  min-height: 288px;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.notebook-lined-textarea:focus {
+  border-color: var(--muted-green);
+}
+
+.notebook-lined-textarea::placeholder {
+  color: var(--text-subtle);
+  font-style: italic;
+  line-height: 32px;
+}
+
+/* Image Upload Area */
+.editor-image-section {
+  margin-bottom: 28px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-light);
+}
+
+.add-image-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--wall);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted-green);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.add-image-trigger:hover {
+  background: var(--border-light);
+}
+
+.editor-image-previews {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.image-preview-card {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  background: #ffffff;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-delete-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #C45548;
+  color: #ffffff;
+  border: none;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Editor Action Buttons */
+.editor-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 650px) {
+  .journal-entry-tile {
+    padding: 14px 18px 14px 22px;
+  }
+  .journal-entry-tile::before {
+    left: 14px;
+  }
+  .journal-notebook-page {
+    padding: 14px 18px 14px 24px;
+  }
+  .journal-notebook-page::before {
+    left: 14px;
+  }
+  .journal-card {
+    padding: 22px 18px 20px 24px;
+  }
+  .journal-card::before {
+    left: 14px;
+  }
+  .journal-editor-page {
+    padding: 28px 18px 24px 24px;
+  }
+  .journal-editor-page::before {
+    left: 14px;
+  }
+}

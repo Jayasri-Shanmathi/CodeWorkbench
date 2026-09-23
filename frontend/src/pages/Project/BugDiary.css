@@ -1,0 +1,387 @@
+/* =========================================================
+   CODE WORKBENCH — BUG DIARY & DEBUGGING NOTEBOOK STYLING
+   "things that broke · things I learned"
+   ========================================================= */
+
+.bugs-container {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* Page Header */
+.bugs-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.bugs-title {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  letter-spacing: 1px;
+  color: var(--dark-green);
+  text-transform: uppercase;
+}
+
+.bugs-subtitle {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* Bug List */
+.bugs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Bug Entry Tiles List with Spacing Between Tiles */
+.bugs-tiles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Individual Notebook Tile */
+.bug-entry-tile {
+  position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(221, 212, 197, 0.45) 31px,
+    rgba(221, 212, 197, 0.45) 32px
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 28px 18px 36px;
+  box-shadow: 0 2px 8px rgba(65, 52, 38, 0.04), 0 1px 2px rgba(65, 52, 38, 0.02);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+/* Faint Vertical Margin Line on Tile */
+.bug-entry-tile::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 24px;
+  width: 1px;
+  background-color: rgba(197, 141, 117, 0.35);
+  pointer-events: none;
+}
+
+.bug-entry-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(65, 52, 38, 0.08);
+  border-color: var(--muted-green);
+}
+
+.bug-entry-date {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--muted-brown);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.bug-entry-title {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--dark-green);
+  line-height: 1.35;
+  margin: 0;
+  transition: color var(--transition-fast);
+}
+
+.bug-entry-tile:hover .bug-entry-title {
+  color: var(--terracotta);
+}
+
+/* Notebook-Style Page Container for Bug Entries */
+.bugs-notebook-page {
+  position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(221, 212, 197, 0.45) 31px,
+    rgba(221, 212, 197, 0.45) 32px
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 36px 16px 44px;
+  box-shadow: 0 4px 12px rgba(65, 52, 38, 0.05), 0 1px 3px rgba(65, 52, 38, 0.03);
+}
+
+/* Faint Vertical Margin Line */
+.bugs-notebook-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 32px;
+  width: 1px;
+  background-color: rgba(197, 141, 117, 0.35);
+  pointer-events: none;
+}
+
+/* Individual Bug Entry Row */
+.bug-entry-row {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), padding-left var(--transition-fast);
+}
+
+.bug-entry-row:last-child {
+  border-bottom: none;
+}
+
+.bug-entry-row:hover {
+  background-color: rgba(221, 212, 197, 0.2);
+  padding-left: 6px;
+}
+
+/* Notebook Debugging Card */
+.bug-notebook-card {
+  position: relative;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    rgba(221, 212, 197, 0.45) 31px,
+    rgba(221, 212, 197, 0.45) 32px
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 28px 36px 26px 44px;
+  box-shadow: 0 4px 12px rgba(65, 52, 38, 0.05), 0 1px 3px rgba(65, 52, 38, 0.03);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.bug-notebook-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(65, 52, 38, 0.09);
+}
+
+/* Faint Vertical Margin Line */
+.bug-notebook-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 32px;
+  width: 1px;
+  background-color: rgba(197, 141, 117, 0.35);
+  pointer-events: none;
+}
+
+/* Top Meta Row */
+.bug-card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.bug-number-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--terracotta);
+  text-transform: uppercase;
+}
+
+.bug-card-date {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--muted-brown);
+  text-transform: uppercase;
+}
+
+/* Bug Status Badges */
+.bug-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.bug-status-badge.in-progress {
+  background: var(--soft-green);
+  color: var(--soft-green-text);
+  border: 1px solid rgba(109, 125, 100, 0.35);
+}
+
+.bug-status-badge.completed {
+  background: #EAF0E7;
+  color: #3B5335;
+  border: 1px solid rgba(80, 115, 75, 0.4);
+}
+
+/* Bug Card Title */
+.bug-card-question {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+/* Notebook Subsections: What Happened & Solution */
+.bug-notebook-section {
+  margin-bottom: 20px;
+}
+
+.bug-section-header {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--muted-brown);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.bug-section-header.solution-header {
+  color: var(--muted-green);
+  border-bottom-color: rgba(109, 125, 100, 0.35);
+}
+
+.bug-section-content {
+  font-size: 15px;
+  color: var(--text);
+  line-height: 32px; /* Aligns with 32px notebook ruling */
+  white-space: pre-wrap;
+}
+
+.bug-solution-notebook-box {
+  background: rgba(229, 235, 223, 0.35);
+  border: 1px solid rgba(109, 125, 100, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+/* Card Actions */
+.bug-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-light);
+}
+
+/* =========================================================
+   BUG ENTRY EDITOR (Debugging Worksheet inside Notebook)
+   ========================================================= */
+
+.bug-editor-page {
+  position: relative;
+  background-color: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 44px 48px 40px 52px;
+  box-shadow: 0 6px 18px rgba(65, 52, 38, 0.07), 0 1px 4px rgba(65, 52, 38, 0.04);
+}
+
+/* Faint vertical margin line on editor page */
+.bug-editor-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 36px;
+  width: 1px;
+  background-color: rgba(197, 141, 117, 0.35);
+  pointer-events: none;
+}
+
+.bug-status-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.bug-status-tab-btn {
+  padding: 7px 16px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.bug-status-tab-btn:hover {
+  background: var(--wall);
+  color: var(--text);
+}
+
+.bug-status-tab-btn.active {
+  border-color: var(--muted-green);
+  background: var(--soft-green);
+  color: var(--dark-green);
+  box-shadow: 0 1px 3px rgba(109, 125, 100, 0.2);
+}
+
+@media (max-width: 650px) {
+  .bug-entry-tile {
+    padding: 14px 18px 14px 22px;
+  }
+  .bug-entry-tile::before {
+    left: 14px;
+  }
+  .bugs-notebook-page {
+    padding: 14px 18px 14px 24px;
+  }
+  .bugs-notebook-page::before {
+    left: 14px;
+  }
+  .bug-notebook-card {
+    padding: 22px 18px 20px 24px;
+  }
+  .bug-notebook-card::before {
+    left: 14px;
+  }
+  .bug-editor-page {
+    padding: 28px 18px 24px 24px;
+  }
+  .bug-editor-page::before {
+    left: 14px;
+  }
+}

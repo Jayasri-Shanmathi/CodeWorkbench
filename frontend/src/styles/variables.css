@@ -1,0 +1,77 @@
+/* =========================================================
+   CODE WORKBENCH — DESIGN SYSTEM VARIABLES
+   "your little corner to build things"
+   ========================================================= */
+
+:root {
+  /* Warm Earthy Palette */
+  --cream: #F5F1E8;
+  --paper: #FFFDF8;
+  --paper-card: #FFFEFA;
+  --wall: #EEE8DA;
+  --dark-green: #29332D;
+  --muted-green: #6D7D64;
+  --muted-green-hover: #5A6A52;
+  --soft-green: #E5EBDF;
+  --soft-green-text: #4C5D46;
+  
+  /* Terracotta & Accents */
+  --terracotta: #A77B5F;
+  --terracotta-hover: #93674D;
+  --terracotta-light: #F7EDE7;
+  --muted-pink: #C58D75;
+  --mustard: #CFA864;
+  --mustard-light: #FBF4E4;
+  
+  /* Wood Tones */
+  --wood-light: #D9AD84;
+  --wood: #C9966E;
+  --wood-medium: #9D694E;
+  --wood-dark: #8E5D47;
+  --wood-deep: #744A37;
+  
+  /* Neutrals & Borders */
+  --muted-brown: #746B5D;
+  --border: #DDD4C5;
+  --border-light: #EBE4D8;
+  --border-focus: #6D7D64;
+  --text: #29332D;
+  --text-muted: #786E60;
+  --text-subtle: #A39785;
+  
+  /* Status Colors */
+  --status-in-progress: #6D7D64;
+  --status-in-progress-bg: #E5EBDF;
+  --status-completed: #A77B5F;
+  --status-completed-bg: #F5EBE4;
+  
+  /* Journal Flags */
+  --flag-general-bg: #ECE7DD;
+  --flag-general-text: #6A6052;
+  --flag-idea-bg: #F8F1DE;
+  --flag-idea-text: #8E7335;
+  --flag-decision-bg: #E3EDE0;
+  --flag-decision-text: #4B6344;
+  --flag-discarded-bg: #F6E7E4;
+  --flag-discarded-text: #965348;
+  
+  /* Typography */
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: Consolas, "Courier New", monospace;
+  
+  /* Shadows & Radius */
+  --shadow-paper: 0 4px 12px rgba(65, 52, 38, 0.06), 0 1px 3px rgba(65, 52, 38, 0.04);
+  --shadow-card: 6px 7px 0 rgba(212, 203, 188, 0.45), 0 12px 24px rgba(65, 52, 38, 0.07);
+  --shadow-hover: 8px 9px 0 rgba(212, 203, 188, 0.6), 0 16px 30px rgba(65, 52, 38, 0.1);
+  --shadow-modal: 0 20px 45px rgba(50, 40, 30, 0.18), 0 4px 12px rgba(50, 40, 30, 0.08);
+  
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 220ms ease;
+}

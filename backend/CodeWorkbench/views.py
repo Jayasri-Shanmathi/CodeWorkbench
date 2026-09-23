@@ -42,9 +42,41 @@ def login_user(request):
     return Response(
         {
             "message": "Login successful",
-            "username": user.username
+            "username": user.username,
+            "csrfToken": get_token(request),
         },
         status=200
+    )
+
+from django.contrib.auth.models import User
+
+#Register Setup
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def register_user(request):
+    username = request.data.get("username")
+    password = request.data.get("password")
+    email = request.data.get("email", "")
+    if not username or not password:
+        return Response(
+            {"error": "Username and password are required"},
+            status=400
+        )
+    if User.objects.filter(username=username).exists():
+        return Response(
+            {"error": "Username is already taken"},
+            status=400
+        )
+    user = User.objects.create_user(username=username, password=password, email=email)
+    login(request, user)
+    return Response(
+        {
+            "message": "Registration successful",
+            "username": user.username,
+            "csrfToken": get_token(request),
+        },
+        status=201
     )
 
 #Logout Setup
@@ -55,7 +87,10 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return Response(
-        {"message": "Logout successful"},
+        {
+            "message": "Logout successful",
+            "csrfToken": get_token(request),
+        },
         status=200
     )
 
@@ -78,13 +113,37 @@ def project(request):
             data = serializer.data
             data["progress"] = progress
             result.append(data)
+
+        def get_timestamp(val):
+            if not val:
+                return 0.0
+            if isinstance(val, str):
+                try:
+                    from datetime import datetime
+                    return datetime.fromisoformat(val.replace("Z", "+00:00")).timestamp()
+                except Exception:
+                    return 0.0
+            if hasattr(val, "timestamp"):
+                return val.timestamp()
+            return 0.0
+
+        # In-progress first (progress < 100), then completed (progress >= 100).
+        # Within each group: last_opened_at DESC, then created_at DESC.
+        result.sort(
+            key=lambda x: (
+                1 if (x.get("progress") or 0) >= 100 else 0,
+                -get_timestamp(x.get("last_opened_at")),
+                -get_timestamp(x.get("created_at")),
+            )
+        )
         return Response(result)
     
     elif request.method=="POST":
         serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
-                serializer.save(user=request.user)
-                return Response(serializer.data, status=201)
+            from django.utils import timezone
+            serializer.save(user=request.user, last_opened_at=timezone.now())
+            return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
    #NO ELSE CLAUSE REQUIRED AS THE DECORATOR WOULD AUTOMATICALLY FILTER OUT ANY OTHER REQUEST METHODS
 
@@ -92,7 +151,7 @@ def project(request):
 @api_view(["PATCH"])
 @permission_classes([IsAuthenticated])
 def update_project(request,id):
-    project=get_object_or_404(Project,id=id)
+    project=get_object_or_404(Project,id=id,user=request.user)
     serializer=ProjectSerializer(project,data=request.data,partial=True)
     if serializer.is_valid():
          serializer.save()
@@ -103,7 +162,7 @@ def update_project(request,id):
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_project(request,id):
-     project=get_object_or_404(Project,id=id)
+     project=get_object_or_404(Project,id=id,user=request.user)
      project.delete()
      return Response({"message":"Project successfully Deleted"},status=200)
 
@@ -159,9 +218,9 @@ def delete_feature(request,project_id,feature_id):
 @api_view(["POST","GET"])
 @permission_classes([IsAuthenticated])
 def journal(request,project_id):
-    project=get_object_or_404(Project,id=project_id)
+    project=get_object_or_404(Project,id=project_id,user=request.user)
     if request.method=="GET":
-        journals=project.journals.all()
+        journals=project.journals.all().order_by('-date', '-id')
         serializer=JournalSerializer(journals,many=True)
         return Response(serializer.data,status=200)
 
@@ -221,7 +280,7 @@ def bugs(request, project_id):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
     elif request.method == "GET":
-        bugs = project.bugs.all()
+        bugs = project.bugs.all().order_by('-created_at', '-id')
         serializer = BugSerializer(bugs, many=True)
         return Response(serializer.data, status=200)
 

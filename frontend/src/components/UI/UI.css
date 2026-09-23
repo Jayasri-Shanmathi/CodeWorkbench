@@ -1,0 +1,287 @@
+/* =========================================================
+   REUSABLE UI COMPONENTS STYLING
+   ========================================================= */
+
+/* Paper Card */
+.paper-card-container {
+  position: relative;
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.paper-card-container.interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.paper-card-fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-top: 36px solid var(--border-light);
+  border-left: 36px solid transparent;
+  pointer-events: none;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  line-height: 1.2;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-primary {
+  background: var(--muted-green);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(65, 80, 60, 0.18);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--muted-green-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(65, 80, 60, 0.24);
+}
+
+.btn-secondary {
+  background: var(--paper);
+  color: var(--text);
+  border-color: var(--border);
+  box-shadow: 0 2px 4px rgba(65, 52, 38, 0.05);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--wall);
+  border-color: var(--muted-brown);
+}
+
+.btn-terracotta {
+  background: var(--terracotta);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(100, 60, 40, 0.18);
+}
+
+.btn-terracotta:hover:not(:disabled) {
+  background: var(--terracotta-hover);
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background: #C45548;
+  color: #ffffff;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #A94337;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 8px 12px;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 16px;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  width: 100%;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--border-light);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--muted-green), #86997B);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Status & Flag Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.status-badge.in-progress {
+  background: var(--status-in-progress-bg);
+  color: var(--soft-green-text);
+  border: 1px solid rgba(109, 125, 100, 0.3);
+}
+
+.status-badge.completed {
+  background: var(--status-completed-bg);
+  color: var(--terracotta);
+  border: 1px solid rgba(167, 123, 95, 0.3);
+}
+
+.flag-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.flag-general {
+  background: var(--flag-general-bg);
+  color: var(--flag-general-text);
+}
+
+.flag-idea {
+  background: var(--flag-idea-bg);
+  color: var(--flag-idea-text);
+}
+
+.flag-decision {
+  background: var(--flag-decision-bg);
+  color: var(--flag-decision-text);
+}
+
+.flag-discarded {
+  background: var(--flag-discarded-bg);
+  color: var(--flag-discarded-text);
+}
+
+/* Empty State */
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 30px;
+  text-align: center;
+  background: var(--paper);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  margin: 20px 0;
+}
+
+.empty-state-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--soft-green);
+  color: var(--muted-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 18px;
+}
+
+.empty-state-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: var(--dark-green);
+  margin-bottom: 8px;
+}
+
+.empty-state-desc {
+  color: var(--text-muted);
+  font-size: 15px;
+  max-width: 380px;
+  margin-bottom: 24px;
+}
+
+/* Confirm Dialog / Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(41, 51, 45, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-dialog {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-modal);
+  width: min(460px, 100%);
+  padding: 32px 30px 24px;
+  position: relative;
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  color: var(--dark-green);
+  margin-bottom: 12px;
+}
+
+.modal-body {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
