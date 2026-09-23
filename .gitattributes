@@ -1,0 +1,14 @@
+# Do not include source code in GitHub's language statistics
+
+*.js linguist-detectable=false
+*.jsx linguist-detectable=false
+*.ts linguist-detectable=false
+*.tsx linguist-detectable=false
+
+*.py linguist-detectable=false
+
+*.css linguist-detectable=false
+*.scss linguist-detectable=false
+*.html linguist-detectable=false
+
+*.json linguist-detectable=false
