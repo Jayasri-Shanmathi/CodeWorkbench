@@ -253,15 +253,11 @@ CSRF_TRUSTED_ORIGINS = [
 # --------------------------------------------------
 
 CSRF_COOKIE_HTTP_ONLY = False
-CSRF_COOKIE_SAMESITE = "Lax"
-SESSION_COOKIE_SAMESITE = "Lax"
 
-
-# --------------------------------------------------
-# PRODUCTION SECURITY
-# --------------------------------------------------
-
-if not DEBUG:
+if DEBUG:
+    CSRF_COOKIE_SAMESITE = "Lax"
+    SESSION_COOKIE_SAMESITE = "Lax"
+else:
     SECURE_SSL_REDIRECT = True
 
     SESSION_COOKIE_SECURE = True
