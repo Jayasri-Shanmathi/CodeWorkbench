@@ -41,7 +41,8 @@ ALLOWED_HOSTS = [
     ).split(",")
     if host.strip()
 ]
-
+if os.getenv("RENDER_EXTERNAL_HOSTNAME"):
+    ALLOWED_HOSTS.append(os.getenv("RENDER_EXTERNAL_HOSTNAME"))
 
 # --------------------------------------------------
 # APPLICATIONS
