@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import logo from "../assets/logo.png";
 import "./Login.css";
 
 function Login() {
@@ -63,7 +64,7 @@ function Login() {
 
                 {/* BRAND */}
                 <div className="brand">
-                    <div className="brand-mark">⌘</div>
+                    <img src={logo} alt="Code Workbench" className="brand-logo-img" />
                     <h1 className="brand-title">Code Workbench</h1>
                     <p className="brand-tagline">your little corner to build things</p>
                 </div>

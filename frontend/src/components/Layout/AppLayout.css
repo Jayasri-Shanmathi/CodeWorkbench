@@ -37,6 +37,16 @@
   box-shadow: 0 4px 10px rgba(65, 80, 60, 0.16);
 }
 
+.app-header-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 3px 10px rgba(65, 80, 60, 0.16);
+  border: 1.5px solid rgba(109, 125, 100, 0.25);
+  flex-shrink: 0;
+}
+
 .app-header-title {
   margin: 0;
   font-family: var(--font-serif);

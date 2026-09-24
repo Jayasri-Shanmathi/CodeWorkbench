@@ -38,6 +38,16 @@
   box-shadow: 0 3px 8px rgba(65, 80, 60, 0.15);
 }
 
+.sidebar-brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(65, 80, 60, 0.18);
+  border: 1.5px solid rgba(109, 125, 100, 0.25);
+  flex-shrink: 0;
+}
+
 .sidebar-brand-text {
   font-family: var(--font-serif);
   font-size: 18px;

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
 import Button from "../UI/Button";
+import logo from "../../assets/logo.png";
 import "./AppLayout.css";
 
 export default function AppLayout({ children }) {
@@ -16,7 +17,7 @@ export default function AppLayout({ children }) {
     <div className="app-layout">
       <header className="app-header">
         <Link to="/home" className="app-header-brand">
-          <div className="app-header-mark">⌘</div>
+          <img src={logo} alt="Code Workbench" className="app-header-logo" />
           <div>
             <h1 className="app-header-title">Code Workbench</h1>
             <p className="app-header-tagline">your little corner to build things</p>

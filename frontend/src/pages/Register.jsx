@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import logo from "../assets/logo.png";
 import "./Login.css";
 
 function Register() {
@@ -53,7 +54,7 @@ function Register() {
             <div className="workbench-scene">
                 {/* BRAND */}
                 <div className="brand">
-                    <div className="brand-mark">⌘</div>
+                    <img src={logo} alt="Code Workbench" className="brand-logo-img" />
                     <h1 className="brand-title">Code Workbench</h1>
                     <p className="brand-tagline">your little corner to build things</p>
                 </div>

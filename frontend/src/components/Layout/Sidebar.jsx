@@ -1,5 +1,6 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/useAuth";
+import logo from "../../assets/logo.png";
 import "./Sidebar.css";
 
 export default function Sidebar({ project, isOpen, onClose }) {
@@ -24,7 +25,7 @@ export default function Sidebar({ project, isOpen, onClose }) {
       <aside className={`sidebar-container ${isOpen ? "open" : ""}`}>
         <div className="sidebar-top">
           <div className="sidebar-brand">
-            <div className="sidebar-brand-mark">⌘</div>
+            <img src={logo} alt="Code Workbench" className="sidebar-brand-logo" />
             <div className="sidebar-brand-text">CODE WORKBENCH</div>
           </div>
           <Link to="/home" className="sidebar-back-link" onClick={onClose}>
