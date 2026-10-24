@@ -27,4 +27,5 @@ urlpatterns = [
     path('database_schema/<int:project_id>/',database_schema),
     path('update_database_schema/<int:project_id>/',update_database_schema),
     path('delete_database_schema/<int:project_id>/',delete_database_schema),
+    path("csrf/", csrf_token, name="csrf_token"),
 ]

@@ -39,6 +39,12 @@ def login_user(request):
         },
         status=200
     )
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def csrf_token(request):
+    return Response({
+        "csrfToken": get_token(request)
+    })
 
 from django.contrib.auth.models import User
 
