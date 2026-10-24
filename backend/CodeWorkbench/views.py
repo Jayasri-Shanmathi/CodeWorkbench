@@ -7,7 +7,59 @@ from django.contrib.auth import login,authenticate,logout
 from rest_framework.decorators import (api_view,authentication_classes,permission_classes)
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from django.middleware.csrf import get_token
+import logging
+logger = logging.getLogger(__name__)
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def login_user(request):
+    stage = "reading request data"
 
+    try:
+        username = request.data.get("username")
+        password = request.data.get("password")
+
+        if not username or not password:
+            return Response(
+                {"error": "Username and password are required"},
+                status=400,
+            )
+
+        stage = "authenticating user"
+
+        user = authenticate(
+            request,
+            username=username,
+            password=password,
+        )
+
+        if user is None:
+            return Response(
+                {"error": "Invalid username or password"},
+                status=401,
+            )
+
+        stage = "creating login session"
+        login(request, user)
+
+        stage = "generating CSRF token"
+        csrf_token = get_token(request)
+
+        return Response(
+            {
+                "message": "Login successful",
+                "username": user.username,
+                "csrfToken": csrf_token,
+            },
+            status=200,
+        )
+
+    except Exception:
+        logger.exception("Login failed during stage: %s", stage)
+        raise
+
+
+"""
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def csrf_token(request):
@@ -493,3 +545,4 @@ def delete_database_schema(request, project_id):
         {"message": "Successfully deleted database schema"},
         status=200
     )
+"""
