@@ -59,7 +59,6 @@ def login_user(request):
         raise
 
 
-"""
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def csrf_token(request):
@@ -545,4 +544,3 @@ def delete_database_schema(request, project_id):
         {"message": "Successfully deleted database schema"},
         status=200
     )
-"""
